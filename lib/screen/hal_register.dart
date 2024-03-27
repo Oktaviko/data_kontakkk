@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:data_kontakkk/controller/kontak_controller.dart';
+import 'package:data_kontakkk/model/kontak.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -20,8 +21,6 @@ class _FormKontakState extends State<FormKontak> {
   final _emailController = TextEditingController();
   final _alamatController = TextEditingController();
   final _noTeleponController = TextEditingController();
-
-  
 
   Future<void> getImage() async {
     final XFile? pickerFile =
@@ -87,44 +86,41 @@ class _FormKontakState extends State<FormKontak> {
               child: Text("No Image Selected"),
             ),
           ),
-           _image == null
-               ? const Text("Tidak ada data yang dipilih")
-               : Image.file(_image!),
+          _image == null
+              ? const Text("Tidak ada data yang dipilih")
+              : Image.file(_image!),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: ElevatedButton(
               onPressed: () {
                 getImage();
               },
-              child: Text("Pilih Gambar"),
+              child: const Text("Pilih Gambar"),
             ),
           ),
           Container(
             margin: const EdgeInsets.all(10),
             child: ElevatedButton(
               onPressed: () async {
-                if (_formkey.currentState!.validate()){
+                if (_formkey.currentState!.validate()) {
                   //Proses simpan data
                   var result = await KontakController().addPerson(
-                    Kontak(
-                      nama: _namaController.text,
-                      email : _emailController.text,
-                      alamat : _alamatController.text,
-                      noTelepon: _noTeleponController.text,
-                      foto: _image!.path
-                    ),
-                    _image
-                  );
+                      Kontak(
+                          nama: _namaController.text,
+                          email: _emailController.text,
+                          alamat: _alamatController.text,
+                          telepon: _noTeleponController.text,
+                          foto: _image!.path),
+                      _image);
 
-                  
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(result['message']),
+                    ),
+                  );
                 }
-              }, child: child),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Simpan"),
+              },
+              child: const Text('Simpan'),
             ),
           ),
         ],
