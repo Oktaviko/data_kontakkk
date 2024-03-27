@@ -105,7 +105,18 @@ class _FormKontakState extends State<FormKontak> {
               onPressed: () async {
                 if (_formkey.currentState!.validate()){
                   //Proses simpan data
-                  var result = await KontakController().addPerson()
+                  var result = await KontakController().addPerson(
+                    Kontak(
+                      nama: _namaController.text,
+                      email : _emailController.text,
+                      alamat : _alamatController.text,
+                      noTelepon: _noTeleponController.text,
+                      foto: _image!.path
+                    ),
+                    _image
+                  );
+
+                  
                 }
               }, child: child),
           ),
