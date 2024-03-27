@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-class KontakService{
+class KontakService {
   final String baseUrl = 'https://paml.tatiumy.com/api/';
   final String endPoint = 'people';
 
-  Uri getUri(String path){
+  Uri getUri(String path) {
     return Uri.parse("$baseUrl$path");
   }
 
@@ -18,13 +18,12 @@ class KontakService{
       ..fields.addAll(data)
       ..headers['Content-Type'] = 'application/json';
 
-      if (file != null){
-        request.files.add(await http.MultipartFile.fromPath('gambar', file.Path));
-      }
-      else {
-        
-      }
+    if (file != null) {
+      request.files.add(await http.MultipartFile.fromPath('gambar', file.path));
+    } else {
+      request.files.add(http.MultipartFile.fromString('gambar', ''));
+    }
+
+    return await http.Response.fromStream(await request.send());
   }
 }
-
-  
