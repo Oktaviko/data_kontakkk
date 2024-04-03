@@ -23,6 +23,7 @@ class _FormKontakState extends State<FormKontak> {
   final _alamatController = TextEditingController();
   final _noTeleponController = TextEditingController();
 
+  final KontakController _personController = KontakController();
   Future<void> getImage() async {
     final XFile? pickerFile =
         await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -101,14 +102,14 @@ class _FormKontakState extends State<FormKontak> {
                 if (_formkey.currentState!.validate()) {
                   _formkey.currentState!.save();
                   //Proses simpan data
-                  var result = await KontakController().addPerson(
-                      Kontak(
-                          nama: _namaController.text,
-                          email: _emailController.text,
-                          alamat: _alamatController.text,
-                          telepon: _noTeleponController.text,
-                          foto: _image!.path),
-                      _image);
+                 Kontak _person = Kontak(nama: _namaController.text, 
+                 email: _emailController.text, 
+                 alamat: _alamatController.text, 
+                 telepon: _noTeleponController.text, 
+                 foto: _image!.path);
+
+                 var result =
+                  await _personController.addPerson(_person, _image);
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
