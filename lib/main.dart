@@ -2,7 +2,7 @@ import 'package:data_kontakkk/screen/hal_register.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Data Kontak"),
+          title: const Text("Data Kontak"),
           centerTitle: true,
         ),
-        body: FormKontak()
+        body: const FormKontak()
       ),
     );
   }

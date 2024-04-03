@@ -49,39 +49,39 @@ class _FormKontakState extends State<FormKontak> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextFormField(
               decoration:
-                  InputDecoration(labelText: "Nama", hintText: "Masukkan Nama"),
+                  const InputDecoration(labelText: "Nama", hintText: "Masukkan Nama"),
               controller: _namaController,
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Email", hintText: "Masukkan Email"),
               controller: _emailController,
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "Alamat", hintText: "Masukkan Alamat"),
               controller: _alamatController,
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "No Telepon", hintText: "Masukkan No Telepon"),
               controller: _noTeleponController,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 50),
             child: SizedBox(
               child: Text("No Image Selected"),
             ),
