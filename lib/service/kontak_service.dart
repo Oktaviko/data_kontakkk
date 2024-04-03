@@ -26,6 +26,8 @@ class KontakService {
 
     return await http.Response.fromStream(await request.send());
   }
+
+  //Untuk mengambil data dari API
   Future<List<dynamic>> fetchPeople() async {
     var response = await http.get(
         getUri(
