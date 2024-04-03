@@ -1,4 +1,5 @@
 import 'package:data_kontakkk/screen/hal_register.dart';
+import 'package:data_kontakkk/screen/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
           title: const Text("Data Kontak"),
           centerTitle: true,
         ),
-        body: const FormKontak()
+        body: const HomeView()
       ),
     );
   }
