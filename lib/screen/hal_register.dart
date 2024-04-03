@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:data_kontakkk/controller/kontak_controller.dart';
 import 'package:data_kontakkk/model/kontak.dart';
+import 'package:data_kontakkk/screen/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -46,8 +47,8 @@ class _FormKontakState extends State<FormKontak> {
           Container(
             margin: const EdgeInsets.all(10),
             child: TextFormField(
-              decoration:
-                  const InputDecoration(labelText: "Nama", hintText: "Masukkan Nama"),
+              decoration: const InputDecoration(
+                  labelText: "Nama", hintText: "Masukkan Nama"),
               controller: _namaController,
             ),
           ),
@@ -98,6 +99,7 @@ class _FormKontakState extends State<FormKontak> {
             child: ElevatedButton(
               onPressed: () async {
                 if (_formkey.currentState!.validate()) {
+                  _formkey.currentState!.save();
                   //Proses simpan data
                   var result = await KontakController().addPerson(
                       Kontak(
@@ -112,6 +114,11 @@ class _FormKontakState extends State<FormKontak> {
                     SnackBar(
                       content: Text(result['message']),
                     ),
+                  );
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeView()),
+                    (route) => false,
                   );
                 }
               },
