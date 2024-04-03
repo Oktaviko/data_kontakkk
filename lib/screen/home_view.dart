@@ -1,4 +1,5 @@
 import 'package:data_kontakkk/controller/kontak_controller.dart';
+
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,7 +19,12 @@ class _HomeViewState extends State<HomeView> {
     _controller.getPeople();
   }
 
+   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Daftar Orang"),
+        ),
+        );
   }
 }
