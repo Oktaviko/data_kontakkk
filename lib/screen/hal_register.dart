@@ -43,27 +43,34 @@ class _FormKontakState extends State<FormKontak> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formkey,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                  labelText: "Nama", hintText: "Masukkan Nama"),
-              controller: _namaController,
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                  labelText: "Email", hintText: "Masukkan Email"),
-              controller: _emailController,
-            ),
-          ),
-           Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Data Kontak"),
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 200, 210, 214),
+      ),
+      body: Form(
+        key: _formkey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: "Nama", hintText: "Masukkan Nama"),
+                  controller: _namaController,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: "Email", hintText: "Masukkan Email"),
+                  controller: _emailController,
+                ),
+              ),
+              Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -112,64 +119,58 @@ class _FormKontakState extends State<FormKontak> {
                   ],
                 ),
               ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                  labelText: "No Telepon", hintText: "Masukkan No Telepon"),
-              controller: _noTeleponController,
-            ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: "No Telepon", hintText: "Masukkan No Telepon"),
+                  controller: _noTeleponController,
+                ),
+              ),
+              _image == null
+                  ? const Text("Tidak ada data yang dipilih")
+                  : Image.file(_image!),
+              ElevatedButton(
+                onPressed: () {
+                  getImage();
+                },
+                child: const Text("Pilih Gambar"),
+              ),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formkey.currentState!.validate()) {
+                      _formkey.currentState!.save();
+                      //Proses simpan data
+                      Kontak _person = Kontak(
+                        nama: _namaController.text,
+                        email: _emailController.text,
+                        alamat: _alamat ?? '',
+                        telepon: _noTeleponController.text,
+                        foto: _image!.path,
+                      );
+                      var result =
+                          await _personController.addPerson(_person, _image);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result['message']),
+                        ),
+                      );
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeView()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: const Text('Simpan'),
+                ),
+              ),
+            ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 50),
-            child: SizedBox(
-              child: Text("No Image Selected"),
-            ),
-          ),
-          _image == null
-              ? const Text("Tidak ada data yang dipilih")
-              : Image.file(_image!),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: () {
-                getImage();
-              },
-              child: const Text("Pilih Gambar"),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: () async {
-                if (_formkey.currentState!.validate()) {
-                  _formkey.currentState!.save();
-                  //Proses simpan data
-                 Kontak _person = Kontak(nama: _namaController.text, 
-                 email: _emailController.text, 
-                 alamat: _alamatController.text, 
-                 telepon: _noTeleponController.text, 
-                 foto: _image!.path);
-
-                 var result =
-                  await _personController.addPerson(_person, _image);
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(result['message']),
-                    ),
-                  );
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeView()),
-                    (route) => false,
-                  );
-                }
-              },
-              child: const Text('Simpan'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
